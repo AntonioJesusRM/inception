@@ -7,8 +7,8 @@ else
 	tar -xzf latest.tar.gz
 	rm -rf latest.tar.gz
 
-	mv wordpress/* .
-	mv rm -rf wordpress
+	mv -f wordpress/* .
+	rm -rf wordpress
 
 	#Inport env variables in the config file
 	sed -i "s/username_here/$MYSQL_USER/g" wp-config-sample.php
