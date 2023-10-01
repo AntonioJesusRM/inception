@@ -7,15 +7,19 @@ else
 	tar -xzf latest.tar.gz
 	rm -rf latest.tar.gz
 
-	mv -f wordpress/* .
+	mv wordpress/* /var/www/html/
 	rm -rf wordpress
+	cd /var/www/html/
 
 	#Inport env variables in the config file
-	sed -i "s/username_here/$MYSQL_USER/g" wp-config-sample.php
-	sed -i "s/password_here/$MYSQL_PASSWORD/g" wp-config-sample.php
-	sed -i "s/localhost/$MYSQL_HOSTNAME/g" wp-config-sample.php
-	sed -i "s/database_name_here/$MYSQL_DATABASE/g" wp-config-sample.php
 	cp wp-config-sample.php wp-config.php
+	sed -i "s/database_name_here/$MYSQL_DATABASE/" wp-config.php
+	sed -i "s/username_here/$MYSQL_USER/" wp-config.php
+	sed -i "s/password_here/$MYSQL_PASSWORD/" wp-config.php
+	sed -i "s/localhost/$MYSQL_HOSTNAME/" wp-config.php
+	curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> wp-config.php
+
+	cd ~
 fi
 
 exec "$@"

@@ -14,6 +14,9 @@ COPY conf/mysql.conf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./tools/mariadb.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/mariadb.sh
 
+COPY ./conf/wordpress.sql /usr/local/bin/
+RUN chmod +x /usr/local/bin/wordpress.sql
+
 # Define a main command that will be executed when you start the content
 ENTRYPOINT [ "/usr/local/bin/mariadb.sh" ]
 
